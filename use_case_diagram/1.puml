@@ -1,0 +1,43 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Пасажир" as Passenger
+actor "Провідник" as Conductor
+actor "Адміністратор" as Admin
+
+rectangle "Система залізничних квитків" {
+    usecase "Купити квиток" as UC1
+    usecase "Пошук маршруту" as UC2
+    usecase "Вибрати спосіб оплати" as UC3
+    usecase "Вибрати місце у вагоні" as UC4
+    usecase "Додати новий потяг" as UC5
+    usecase "Змінити розклад руху" as UC6
+    usecase "Скасувати рейс" as UC7
+    usecase "Ввести дані пасажира" as UC8
+    usecase "Авторизуватись" as UC9
+    usecase "Перевірити інформацію БД" as UC10
+}
+
+' Асоціації акторів
+Passenger --> UC1
+Passenger --> UC2
+Conductor --> UC7
+Admin --> UC5
+Admin --> UC6
+Admin --> UC10
+
+' Узагальнення (Generalization)
+Passenger <|-- Conductor
+Conductor <|-- Admin
+
+' Зв'язки include та extend
+UC1 ..> UC2 : <<include>>
+UC1 ..> UC3 : <<include>>
+UC1 ..> UC4 : <<include>>
+UC1 ..> UC8 : <<include>>
+UC5 ..> UC8 : <<include>>
+UC6 ..> UC8 : <<include>>
+UC7 ..> UC6 : <<extend>>
+UC10 ..> UC9 : <<include>>
+@enduml
