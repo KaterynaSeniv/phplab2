@@ -1,0 +1,125 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class User {
+    +id: Int
+    +name: String
+    +email: String
+    +password: String
+    +register(): void
+    +login(): bool
+    +logout(): void
+    +updateProfile(): void
+    +resetPassword(): void
+}
+
+class Passenger {
+    +phone: String
+    +passportData: String
+    +searchRoutes(): Collection
+    +selectSeat(car: Car, seatNum: Int): void
+    +buyTicket(route: Route): Ticket
+    +cancelTicket(ticket: Ticket): void
+    +getMyTickets(): Collection
+}
+
+class Conductor {
+    +badgeNumber: String
+    +trainNumber: String
+    +scanTicketQR(ticket: Ticket): bool
+    +verifyPassengerList(): Collection
+    +markPassengerBoarded(ticket: Ticket): void
+    +reportIssue(description: String): void
+}
+
+class Admin {
+    +accessLevel: Int
+    +manageUsers(): void
+    +systemAudit(): void
+    +backupDatabase(): void
+    +manageSchedules(): void
+    +viewSystemLogs(): String
+}
+
+class Station {
+    +id: Int
+    +name: String
+    +city: String
+    +addRoute(route: Route): void
+    +getRoutes(): Collection
+    +updateStationInfo(): void
+    +deleteStation(): void
+    +getStationCode(): String
+}
+
+class Train {
+    +id: Int
+    +trainNumber: String
+    +trainType: String
+    +totalCars: Int
+    +addCar(car: Car): void
+    +getCarsList(): Collection
+    +updateTrainInfo(): void
+    +checkCapacity(): int
+}
+
+class Route {
+    +id: Int
+    +departureTime: DateTime
+    +arrivalTime: DateTime
+    +price: Float
+    +updateRoutePrice(price: Float): void
+    +isAvailable(): bool
+    +getRouteDetails(): String
+    +assignTrain(train: Train): void
+}
+
+class Ticket {
+    +id: Int
+    +seatNumber: Int
+    +carNumber: Int
+    +status: String
+    +qrCodeData: String
+    +calculateCost(): Float
+    +confirm(): void
+    +cancel(): void
+    +processPayment(): bool
+    +generatePDF(): String
+}
+
+class Car {
+    +id: Int
+    +carType: String
+    +capacity: Int
+    +getFreeSeats(): Collection
+    +isSeatAvailable(seatNum: Int): bool
+    +assignToTrain(train: Train): void
+    +updateCarStatus(): void
+}
+
+class Review {
+    +id: Int
+    +rating: Int
+    +comment: String
+    +createdAt: Date
+    +createReview(): void
+    +editReview(): void
+    +deleteReview(): void
+    +approveReview(): void
+    +getAverageForRoute(route: Route): Float
+}
+
+' Зв'язки
+User <|-- Passenger : наслідує
+User <|-- Conductor : наслідує
+User <|-- Admin : наслідує
+
+Train "1" *-- "1..*" Car : містить (композиція)
+Route "1" --> "1" Train : обслуговується (асоціація)
+Passenger "1" --> "0..*" Ticket : купує (асоціація)
+Route "1" --> "0..*" Ticket : генерує (асоціація)
+Train "1" o-- "0..*" Ticket : містить місця у (агрегація)
+Route "1" --> "0..*" Review : отримує (асоціація)
+Passenger "1" --> "0..*" Review : залишає (асоціація)
+
+@enduml
