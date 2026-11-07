@@ -19,7 +19,6 @@ rectangle "Система залізничних квитків" {
     usecase "Перевірити інформацію БД" as UC10
 }
 
-' Асоціації акторів
 Passenger --> UC1
 Passenger --> UC2
 Conductor --> UC7
@@ -27,11 +26,9 @@ Admin --> UC5
 Admin --> UC6
 Admin --> UC10
 
-' Узагальнення (Generalization)
 Passenger <|-- Conductor
 Conductor <|-- Admin
 
-' Зв'язки include та extend
 UC1 ..> UC2 : <<include>>
 UC1 ..> UC3 : <<include>>
 UC1 ..> UC4 : <<include>>
