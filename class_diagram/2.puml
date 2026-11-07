@@ -109,7 +109,6 @@ class Review {
     +getAverageForRoute(route: Route): Float
 }
 
-' Зв'язки
 User <|-- Passenger : наслідує
 User <|-- Conductor : наслідує
 User <|-- Admin : наслідує
