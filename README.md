@@ -16,7 +16,7 @@
 ## 3. UML-діаграми
 
 ### Діаграма варіантів використання (Use Case Diagram)
-![Use Case Diagram](use_case_diagram/123.png)
+![Use Case Diagram](use_case_diagram/123.png.png)
 
 ### Діаграма класів (Class Diagram)
 ![Class Diagram](class_diagram/1234.png)
